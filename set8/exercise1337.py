@@ -116,7 +116,7 @@ def fizz_buzz() -> List:
     """
     fizz_buzz_list = []
     # your code here
-    for i in range(1,100):
+    for i in range(1,101):
 
         x = (i % 3 == 0)
         y = (i % 5 == 0)
@@ -209,9 +209,11 @@ def make_filler_text_dictionary() -> Dict:
     TIP: you'll need the requests library
     """
 
-    url = "https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength="
     wd = {}
-
+    for i in range(3,8):
+        url = f"https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength={i}"
+        response = requests.get(url)
+        word = response.text
     return wd
 
 
@@ -229,7 +231,8 @@ def random_filler_text(number_of_words=200) -> str:
     my_dict = make_filler_text_dictionary()
 
     words = []
-    random.choice(my_dict)
+    a = random.choice(my_dict)
+    print(a)
 
     return " ".join(words)
 
@@ -251,7 +254,7 @@ def fast_filler(number_of_words=200) -> str:
 
     fname = "dict_cache.json"
 
-    return 1 == 1
+    return None
 
 
 if __name__ == "__main__":
