@@ -1,6 +1,7 @@
 """All about IO."""
 
 
+from fileinput import filename
 import json
 import os
 import requests
@@ -25,7 +26,6 @@ def get_some_details():
     """Parse some JSON.
 
     In lazyduck.json is a description of a person from https://randomuser.me/
-    Read it in and use the json library to convert it to a dictionary.
     Return a new dictionary that just has the last name, password, and the
     number you get when you add the postcode to the id-value.
     TIP: Make sure that you add the numbers, not concatinate the strings.
@@ -78,7 +78,16 @@ def wordy_pyramid():
     TIP: to add an argument to a URL, use: ?argName=argVal e.g. &wordlength=
     """
     pyramid = []
-
+    for i in range(3,20,2):
+        url = f"https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength={i}"
+        response = requests.get(url)
+        word = response.text
+        pyramid.append(word)
+    for i in range(20, 3, -2):
+        url = f"https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength={i}"
+        response = requests.get(url)
+        word = response.text
+        pyramid.append(word)
     return pyramid
 
 
@@ -122,6 +131,18 @@ def diarist():
 
     NOTE: this function doesn't return anything. It has the _side effect_ of modifying the file system
     """
+    filename = r"C:\Users\Daniel\1161\me\set4\Trispokedovetiles(laser).gcode"
+    file = open(filename, encoding= "utf-8")
+    On = 0
+    Off = 0
+    for i in file.readlines():
+        if "M10 P1" in i:
+            Off = Off + 1
+        elif "M11 P1" in i:
+            On = On + 1
+    newfile = r"C:\Users\Daniel\1161\me\set4\lasers.pew"
+    newf = open(newfile, encoding = "utf-8")
+    newf.write(str(Off))
     pass
 
 
